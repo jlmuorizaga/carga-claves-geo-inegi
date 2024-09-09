@@ -3,7 +3,7 @@ import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonGrid, IonRow
 import { CatalogoUnicoService } from '../services/catalogo-unico.service';
 import { SharedModule } from '../shared/shared/shared.module';
 import { Mgee } from '../model/mgee';
-import { Router } from 'express';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -13,9 +13,10 @@ import { Router } from 'express';
   imports: [SharedModule,IonCol, IonRow, IonGrid, IonButton, IonHeader, IonToolbar, IonTitle, IonContent],
 })
 export class HomePage {
-
-  constructor(private catalogoUnicoSvc:CatalogoUnicoService, private router: Router) {}
   registros!:Mgee[];
+  registro!:Mgee;
+  constructor(private catalogoUnicoSvc:CatalogoUnicoService, private router: Router) {}
+
 
   cargaCatalogoEstados(){
     this.catalogoUnicoSvc.getEstados().subscribe({
@@ -24,10 +25,11 @@ export class HomePage {
         console.log(res);
         this.registros=res;
 
-    /*    this.registros.forEach((registro) => {
-         this.insertaRegistroMgee(registro)
-        });
-*/
+
+       res.datos.forEach((registro: Mgee) => {
+        this.insertaRegistroMgee(registro);
+       });
+   
 
       },
       error:(error:any)=>{

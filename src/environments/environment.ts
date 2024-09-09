@@ -5,11 +5,11 @@
 export const environment = {
   production: false,
   urlEstados:'https://gaia.inegi.org.mx/wscatgeo/v2/mgee/',
-  baseUrl:'https://gaia.inegi.org.mx/wscatgeo/',
+  baseUrl:'http://localhost',
   estados:'mgee/',
   municipios:'mgem/',
   localidades:'localidades/',
-   insertaMgee:'/insertagee'
+   insertaMgee:'/inserta-mgee'
 };
 
 /*
