@@ -3,7 +3,13 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  urlEstados:'https://gaia.inegi.org.mx/wscatgeo/v2/mgee/',
+  baseUrl:'https://gaia.inegi.org.mx/wscatgeo/',
+  estados:'mgee/',
+  municipios:'mgem/',
+  localidades:'localidades/',
+   insertaMgee:'/insertagee'
 };
 
 /*
@@ -14,3 +20,5 @@ export const environment = {
  * on performance if an error is thrown.
  */
 // import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
+
+
