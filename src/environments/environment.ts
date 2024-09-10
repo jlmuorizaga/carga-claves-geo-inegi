@@ -5,20 +5,15 @@
 export const environment = {
   production: false,
   urlEstados:'https://gaia.inegi.org.mx/wscatgeo/v2/mgee/',
+  urlMpios  :'https://gaia.inegi.org.mx/wscatgeo/v2/mgem/',
+  puerto:'3006',
   baseUrl:'http://localhost',
   estados:'mgee/',
-  municipios:'mgem/',
+  municipios:'/mgem/',
   localidades:'localidades/',
-   insertaMgee:'/inserta-mgee'
+  insertaMgee:'/inserta-mgee',
+  insertaMgem:'/inserta-mgem'
 };
 
-/*
- * For easier debugging in development mode, you can import the following file
- * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
- *
- * This import should be commented out in production mode because it will have a negative impact
- * on performance if an error is thrown.
- */
-// import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
 
 
