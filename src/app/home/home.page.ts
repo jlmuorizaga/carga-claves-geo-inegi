@@ -5,6 +5,7 @@ import { SharedModule } from '../shared/shared/shared.module';
 import { Mgee } from '../model/mgee';
 import { Router } from '@angular/router';
 import { Mgem } from '../model/mgem';
+import { Localidad } from '../model/localidad';
 
 @Component({
   selector: 'app-home',
@@ -19,6 +20,32 @@ export class HomePage {
   registroMgem!: Mgem;
   constructor(private catalogoUnicoSvc: CatalogoUnicoService, private router: Router) { }
 
+
+  cargaCatalogoLocalidades() {
+    // https://gaia.inegi.org.mx/wscatgeo/v2/localidades/01001
+    this.catalogoUnicoSvc.getEstados().subscribe({
+
+      next: (res: any) => {
+        console.log(res);
+        this.registros = res;
+
+
+        res.datos.forEach((registroMgee: Mgee) => {
+          this.insertaRegistroMgee(registroMgee);
+        });
+
+
+      },
+      error: (error: any) => {
+        console.log('Error en estados');
+        console.log(error)
+
+
+      }
+    })
+
+
+  }
 
   cargaCatalogoEstados() {
     this.catalogoUnicoSvc.getEstados().subscribe({
@@ -76,8 +103,8 @@ export class HomePage {
         });
       },
       error: (error: any) => {
-      //  console.log('Error en estados');
-      //  console.log(error)
+        //  console.log('Error en estados');
+        //  console.log(error)
       }
     })
   }
@@ -92,8 +119,8 @@ export class HomePage {
         });
       },
       error: (error: any) => {
-       // console.log('Error en municipios');
-       // console.log(error)
+        // console.log('Error en municipios');
+        // console.log(error)
 
 
       }
@@ -116,6 +143,57 @@ export class HomePage {
         console.log('Registro insertado  de  forma exitosa')
         console.log(res);
 
+      },
+      error: (error: any) => {
+        console.log('Error en la inserción del registro')
+        console.log(error)
+      }
+    })
+  }
+
+  cargaLocalidadesXMpio(estado: string) {
+    this.catalogoUnicoSvc.getMunicipios(estado).subscribe({
+      next: (res: any) => {
+        console.log(res);
+        this.registros = res;
+        res.datos.forEach((registroMgem: Mgem) => {
+          this.insertaRegistroMgem(registroMgem);
+        });
+      },
+      error: (error: any) => {
+        // console.log('Error en municipios');
+        // console.log(error)
+
+
+      }
+    })
+  }
+
+
+
+
+  insertaRegistroLocalidad(registroLocalidad: Localidad) {
+    let localidad: Localidad = new Localidad();
+    localidad.cvegeo = registroLocalidad.cvegeo;
+    localidad.cve_ent = registroLocalidad.cve_ent;
+    localidad.cve_mun = registroLocalidad.cve_mun;
+    localidad.cve_loc = registroLocalidad.cve_loc;
+    localidad.nomgeo = registroLocalidad.nomgeo;
+
+    localidad.ambito = registroLocalidad.ambito;
+    localidad.latitud = registroLocalidad.latitud;
+    localidad.longitud = registroLocalidad.longitud;
+    localidad.altitud = registroLocalidad.altitud;
+    localidad.pob_total = registroLocalidad.pob_total;
+    localidad.total_viviendas_habitadas = registroLocalidad.total_viviendas_habitadas;
+    localidad.cve_carta = registroLocalidad.cve_carta;
+    localidad.estatus = registroLocalidad.estatus;
+    localidad.periodo = registroLocalidad.periodo;
+
+    this.catalogoUnicoSvc.insertaLocalidad(localidad).subscribe({
+      next: (res: any) => {
+        console.log('Localidad insertada de forma exitosa')
+        console.log(res);
       },
       error: (error: any) => {
         console.log('Error en la inserción del registro')

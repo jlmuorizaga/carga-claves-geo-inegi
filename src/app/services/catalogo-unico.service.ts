@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
 import { Mgem } from '../model/mgem';
+import { Localidad } from '../model/localidad';
 
 @Injectable({
   providedIn: 'root'
@@ -28,5 +29,8 @@ export class CatalogoUnicoService {
   //https://gaia.inegi.org.mx/wscatgeo/v2/mgem/01
   insertaMgem(mgem:Mgem) {
     return this.http.post(environment.baseUrl + ':' + environment.puerto + environment.insertaMgem,mgem);
+  }
+  insertaLocalidad(localidad:Localidad) {
+    return this.http.post(environment.baseUrl + ':' + environment.puerto + environment.insertaLocalidad,localidad);
   }
 }
