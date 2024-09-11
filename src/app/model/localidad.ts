@@ -5,12 +5,12 @@ export class Localidad {
     cve_loc!: string;
     nomgeo!: string;
     ambito!: string;
-    latitud!: number;
-    longitud!: number;
-    altitud!: number;
-    pob_total!: number;
-    total_viviendas_habitadas!: number;
+    latitud!: string;
+    longitud!: string;
+    altitud!: string;
+    pob_total!: string;
+    total_viviendas_habitadas!: string;
     cve_carta!: string;
-    estatus!: number;
+    estatus!: string;
     periodo!: string;
   }

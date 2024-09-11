@@ -10,6 +10,6 @@ export const environment = {
   localidades:'localidades/',
   insertaMgee:'/inserta-mgee',
   insertaMgem:'/inserta-mgem',
-  insertaLocalidad:'//inserta-localidad' 
+  insertaLocalidad:'/inserta-localidad'
 };
 

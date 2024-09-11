@@ -18,8 +18,8 @@ export class CatalogoUnicoService {
   getMunicipios(id:string){
     return this.http.get(environment.urlMpios+id)
   }
-  getLocalidades(id:string){
-    return this.http.get(environment.baseUrl+environment.localidades+id)
+  getLocalidades(id:Mgem){
+    return this.http.get(environment.urlLocalidades+id.cvegeo)
   }
 
   insertaMgee(mgee:Mgee) {

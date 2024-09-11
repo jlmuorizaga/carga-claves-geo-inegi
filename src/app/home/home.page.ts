@@ -6,6 +6,7 @@ import { Mgee } from '../model/mgee';
 import { Router } from '@angular/router';
 import { Mgem } from '../model/mgem';
 import { Localidad } from '../model/localidad';
+import { async } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -21,6 +22,7 @@ export class HomePage {
   constructor(private catalogoUnicoSvc: CatalogoUnicoService, private router: Router) { }
 
 
+
   cargaCatalogoLocalidades() {
     // https://gaia.inegi.org.mx/wscatgeo/v2/localidades/01001
     this.catalogoUnicoSvc.getEstados().subscribe({
@@ -31,20 +33,58 @@ export class HomePage {
 
 
         res.datos.forEach((registroMgee: Mgee) => {
-          this.insertaRegistroMgee(registroMgee);
+          this.leeMpiosXEstado(registroMgee.cve_ent);
+          //this.leeMpiosXEstado("01")
         });
 
 
       },
       error: (error: any) => {
-        console.log('Error en estados');
+        console.log('Error en lectura de municipios');
         console.log(error)
 
 
       }
     })
+  }
+
+  leeMpiosXEstado(estado: string) {
+    this.catalogoUnicoSvc.getMunicipios(estado).subscribe({
+      next: (res: any) => {
+        console.log(res);
+        this.registros = res;
+        res.datos.forEach((registroMgem: Mgem) => {
+          this.leeLocalidadexXMpio(registroMgem);
+          //this.leeLocalidadexXMpio("001");
+        });
+      },
+      error: (error: any) => {
+         console.log('Error en lectura de localidades');
+         console.log(error)
 
 
+      }
+    })
+  }
+
+  leeLocalidadexXMpio(municipio: Mgem) {
+    this.catalogoUnicoSvc.getLocalidades(municipio).subscribe({
+      next: (res: any) => {
+     /*   console.log('Entidad=',municipio.cve_ent);
+        console.log('Municipio=',municipio.cve_mun);
+        console.log(res);
+     */   this.registros = res;
+        res.datos.forEach((registroLocalidad: Localidad) => {
+          this.insertaRegistroLocalidad(registroLocalidad);
+        });
+      },
+      error: (error: any) => {
+        // console.log('Error en municipios');
+        // console.log(error)
+
+
+      }
+    })
   }
 
   cargaCatalogoEstados() {
@@ -103,8 +143,8 @@ export class HomePage {
         });
       },
       error: (error: any) => {
-        //  console.log('Error en estados');
-        //  console.log(error)
+          console.log('Error en estados');
+          console.log(error)
       }
     })
   }
@@ -119,8 +159,8 @@ export class HomePage {
         });
       },
       error: (error: any) => {
-        // console.log('Error en municipios');
-        // console.log(error)
+         console.log('Error en municipios');
+         console.log(error)
 
 
       }
@@ -161,8 +201,8 @@ export class HomePage {
         });
       },
       error: (error: any) => {
-        // console.log('Error en municipios');
-        // console.log(error)
+         console.log('Error en municipios');
+         console.log(error)
 
 
       }
@@ -170,10 +210,9 @@ export class HomePage {
   }
 
 
-
-
   insertaRegistroLocalidad(registroLocalidad: Localidad) {
     let localidad: Localidad = new Localidad();
+    //console.log('Localidad=',registroLocalidad)
     localidad.cvegeo = registroLocalidad.cvegeo;
     localidad.cve_ent = registroLocalidad.cve_ent;
     localidad.cve_mun = registroLocalidad.cve_mun;
