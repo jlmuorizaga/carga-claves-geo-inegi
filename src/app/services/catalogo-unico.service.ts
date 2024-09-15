@@ -12,14 +12,17 @@ export class CatalogoUnicoService {
 
   constructor(private http:HttpClient) { }
 
+  //https://gaia.inegi.org.mx/wscatgeo/v2/mgee/
   getEstados(){
     return this.http.get(environment.urlEstados)
   }
-  getMunicipios(id:string){
-    return this.http.get(environment.urlMpios+id)
+  //https://gaia.inegi.org.mx/wscatgeo/v2/mgem/01
+  getMunicipios(cve_ent:string){
+    return this.http.get(environment.urlMpios+cve_ent)
   }
-  getLocalidades(id:Mgem){
-    return this.http.get(environment.urlLocalidades+id.cvegeo)
+  //https://gaia.inegi.org.mx/wscatgeo/v2/localidades/01001
+  getLocalidades(cvegeo:string){
+    return this.http.get(environment.urlLocalidades+cvegeo)
   }
 
   insertaMgee(mgee:Mgee) {
